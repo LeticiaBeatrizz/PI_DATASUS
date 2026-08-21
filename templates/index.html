@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block header %}
+
+    <header class="topbar topbar-index">
+
+        <button class="hamburger" id="menuToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <a class="marca" href="{{ url_for('home') }}">
+            <span class="marca-title">Análise de dados<br>do DATASUS</span>
+            <span class="marca-divider" aria-hidden="true"></span>
+            <span class="marca-subtitle">{{ dados.subtitulo }}</span>
+        </a>
+        
+        <a class="btn btn--cta" href="{{ url_for('destaque') }}"> Acesse algo
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14"/>
+            </svg>
+        </a>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <section class="index-pag">
+        <div class="index-grid">
+            <div class="index-text">
+
+                <h1 class="index-title"> Análise de dados do <br span class="index-title-strong">DATASUS</span></h1>
+                <p class="index-subtitle">Febre Amarela</p>
+
+                <a class="index-botao" href="{{ url_for('destaque') }}"> Acesse algo
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14"/>
+                    </svg>
+                </a>
+
+            </div>
+            <div class="index-card">
+                <p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
