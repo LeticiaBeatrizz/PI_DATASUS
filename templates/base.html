@@ -14,12 +14,32 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     </head>
+
+    <header class="topbar topbar-index">
+
+        <button class="hamburger" id="menuToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <a class="marca" href="{{ url_for('home') }}">
+            <span class="marca-title">Análise de dados<br>do DATASUS</span>
+            <span class="marca-divider" aria-hidden="true"></span>
+            <span class="marca-subtitle">{{ dados.subtitulo }}</span>
+        </a>
+        
+        <a class="btn btn--cta" href="{{ url_for('destaque') }}"> Acesse algo
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14"/>
+            </svg>
+        </a>
+    </header>
+
     <body>
         <div class = "menu" id = "menu"> </div>
 
         <nav class = "sidebar"  id = "sidebar" aria-hidden = "true">
             <ul class = "sidebar-list">
-                <li> <a href = {{ url_for('opcao', num = 1) }}> Opção 01 </a> </li>
+                <li> <a href = {{ url_for('opcao', num = 1) }}> Estudo Teórico </a> </li>
                 <li> <a href = {{ url_for('opcao', num = 2) }}> Opção 02 </a> </li>
                 <li> <a href = {{ url_for('opcao', num = 3) }}> Opção 03 </a> </li>
             </ul>
@@ -30,13 +50,11 @@
             </a>
         </nav>
 
-        {% block header %} {% endblock %}
-
         <main> 
             {% block content %} {% endblock %}
         </main>
 
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
         {% block scripts %} {% endblock %}
     </body>
 </html>
