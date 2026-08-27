@@ -149,7 +149,31 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-9px) rot
   box-shadow: var(--shadow);
   color: var(--text-muted);
   line-height: 1.7;
-  max-width: 900px;
+  width: 100%;
+}
+
+.content-card h2,
+.content-card h3,
+.content-card h4 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.content-card h2 { font-size: 1.5rem; margin: 8px 0 12px; }
+.content-card h3 { font-size: 1.2rem; margin: 28px 0 10px; }
+.content-card h4 { font-size: 1.05rem; color: var(--orange-dark); margin: 22px 0 8px; }
+
+.content-card p { margin: 0 0 16px; }
+
+.content-card .referencias {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.content-card .referencias li {
+  margin-bottom: 10px;
+  font-size: 0.92rem;
 }
 
 /* Menu lateral */
