@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+    {{ dados.titulo }} · DATASUS
+{% endblock %}
+
+{% block content %}
+    <section class="page-pad content-section">
+        <p class="eyebrow">{{ dados.titulo }}</p>
+        
+        <div class="content-card">
+            {% if dados.html %}
+                {{ dados.texto | safe }}
+            {% else %}
+                <p>{{ dados.texto }}</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
