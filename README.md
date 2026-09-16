@@ -1,5 +1,9 @@
 # Para executar app.py:
-- Recomenda-se instalar o ambiente virtual: 
+- Crie o ambiente virtual (rode apenas uma vez, dentro da pasta do projeto):
+
+    python -m venv venv
+
+- Ative o ambiente virtual:
 
     No Windows PowerShell: .\venv\Scripts\Activate.ps1
 
@@ -8,4 +12,4 @@
     No macOS ou Linux: source venv/bin/activate
 
 - Instale a dependência: pip install -r requirements.txt
-- Execute no terminal: python app.pysource venv/bin/activate
+- Execute no terminal: python app.py
