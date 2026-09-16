@@ -15,6 +15,79 @@
             {% else %}
                 <p>{{ dados.texto }}</p>
             {% endif %}
+
+            {% if graficos %}
+            <div class="grafico-secao">
+                <h3>Cruzamento de dados: casos humanos x epizootias em PNH</h3>
+
+                <div class="grafico-bloco">
+                    <p class="grafico-titulo">Evolução anual: casos humanos x epizootias em PNH</p>
+
+                    <div class="grafico-filtros">
+                        <label for="ano_grafico1">Selecione o ano:</label>
+                        <select id="ano_grafico1">
+                            <option value="Todos" selected>Todos</option>
+                            {% for ano in graficos.anos_disponiveis %}
+                            <option value="{{ ano }}">{{ ano }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="grafico-grid">
+                        <div class="grafico-item">
+                            <p class="grafico-legenda">Casos Humanos</p>
+                            <img id="img-anual-humanos" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_hum_anual }}" alt="Casos humanos por ano">
+                        </div>
+                        <div class="grafico-item">
+                            <p class="grafico-legenda">Epizootias em PNH</p>
+                            <img id="img-anual-epizootias" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_epi_anual }}" alt="Epizootias em PNH por ano">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grafico-bloco">
+                    <p class="grafico-titulo">Ocorrências por estado</p>
+
+                    <div class="grafico-filtros grafico-filtros--duplo">
+                        <div>
+                            <label for="ano_grafico2">Selecione o ano:</label>
+                            <select id="ano_grafico2">
+                                <option value="Todos" selected>Todos</option>
+                                {% for ano in graficos.anos_disponiveis_g2 %}
+                                <option value="{{ ano }}">{{ ano }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="uf_grafico2">Selecione a UF:</label>
+                            <select id="uf_grafico2">
+                                <option value="Todas" selected>Todas</option>
+                                {% for uf in graficos.ufs_disponiveis %}
+                                <option value="{{ uf }}">{{ uf }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grafico-grid">
+                        <div class="grafico-item">
+                            <p class="grafico-legenda">Casos Humanos — Total: <strong id="total-humanos-uf">{{ graficos.total_humanos }}</strong></p>
+                            <img id="img-uf-humanos" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_hum_uf }}" alt="Casos humanos por UF">
+                        </div>
+                        <div class="grafico-item">
+                            <p class="grafico-legenda">Epizootias em PNH — Total: <strong id="total-epizootias-uf">{{ graficos.total_epizootias }}</strong></p>
+                            <img id="img-uf-epizootias" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_epi_uf }}" alt="Epizootias em PNH por UF">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </section>
+{% endblock %}
+
+{% block scripts %}
+    {% if dados.graficos %}
+        <script src="{{ url_for('static', filename='graficos.js') }}"></script>
+    {% endif %}
 {% endblock %}
