@@ -1,14 +1,23 @@
+import atexit
 import os
+import subprocess
+import sys
 
 import markdown
-from flask import Flask, abort, jsonify, render_template, request
-
-from graficos import montar_grafico_anual, montar_grafico_uf
+from flask import Flask, abort, render_template
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONTENT_DIR = os.path.join(BASE_DIR, "content")
+STREAMLIT_APPS_DIR = os.path.join(BASE_DIR, "streamlit_apps")
+
+# Portas onde os apps Streamlit ficam disponíveis. São embutidos na página
+# de "Definição da Base de Dados" via <iframe> (ver templates/opcao.html).
+PORTA_STREAMLIT_ANOS = 8501
+PORTA_STREAMLIT_ESTADO = 8502
+
+_processos_streamlit = []
 
 
 def carregar_markdown(nome_arquivo):
@@ -19,8 +28,44 @@ def carregar_markdown(nome_arquivo):
     return markdown.markdown(texto_md, extensions=["tables", "extra"])
 
 
+def iniciar_apps_streamlit():
+    """Sobe os dois apps Streamlit (evolução anual e por estado) em segundo
+    plano, cada um na sua porta, para serem exibidos via <iframe>.
+
+    --server.enableCORS false e --server.enableXsrfProtection false são
+    necessários porque, por padrão, o Streamlit bloqueia ser exibido dentro
+    de um <iframe> de outra origem (nesse caso, a página servida pelo Flask).
+    """
+    apps = [
+        ("app_anos.py", PORTA_STREAMLIT_ANOS),
+        ("app_estado.py", PORTA_STREAMLIT_ESTADO),
+    ]
+
+    for nome_arquivo, porta in apps:
+        caminho_app = os.path.join(STREAMLIT_APPS_DIR, nome_arquivo)
+        processo = subprocess.Popen(
+            [
+                sys.executable, "-m", "streamlit", "run", caminho_app,
+                "--server.port", str(porta),
+                "--server.headless", "true",
+                "--server.enableCORS", "false",
+                "--server.enableXsrfProtection", "false",
+                "--browser.gatherUsageStats", "false",
+            ]
+        )
+        _processos_streamlit.append(processo)
+
+
+def encerrar_apps_streamlit():
+    for processo in _processos_streamlit:
+        processo.terminate()
+
+
 ESTUDO_TEORICO_HTML = carregar_markdown("estudo_teorico.md")
-DEFINICAO_BASE_DADOS_HTML = carregar_markdown("definicao_base_dados.md")
+DEFINICAO_BASE_DADOS_HTML = carregar_markdown("def_dados.md")
+DEFINICAO_BASE_DADOS_REFERENCIAS_HTML = carregar_markdown("def_dados_ref.md")
+DEFINICAO_BASE_DADOS_G1_HTML = carregar_markdown("def_dados_g1.md")
+DEFINICAO_BASE_DADOS_G2_HTML = carregar_markdown("def_dados_g2.md")
 
 OPCOES = {
     1: {
@@ -34,9 +79,10 @@ OPCOES = {
         "subtitulo": "Febre Amarela",
         "texto": DEFINICAO_BASE_DADOS_HTML,
         "html": True,
-        "graficos": True,
+        "referencias": DEFINICAO_BASE_DADOS_REFERENCIAS_HTML,
+        "graficos_streamlit": True,
     },
-    3: {"titulo": "Distribuição geográfica", "subtitulo": "Febre Amarela", "texto": "..."},
+    3: {"titulo": "Sobre", "subtitulo": "Febre Amarela", "texto": "..."},
 }
 
 
@@ -51,69 +97,16 @@ def opcao(num):
     if not dados:
         abort(404)
 
-    graficos = None
-    if dados.get("graficos"):
-        # renderização inicial da página sempre com "Todos"/"Todas";
-        # as trocas de filtro depois disso são feitas via JS (fetch),
-        # sem recarregar a página — ver /api/grafico-anual e /api/grafico-uf
-        img_hum_anual, img_epi_anual, anos_disponiveis = montar_grafico_anual("Todos")
-        (
-            img_hum_uf,
-            img_epi_uf,
-            total_humanos,
-            total_epizootias,
-            anos_disponiveis_g2,
-            ufs_disponiveis,
-        ) = montar_grafico_uf("Todos", "Todas")
-
-        graficos = {
-            "anos_disponiveis": anos_disponiveis,
-            "anos_disponiveis_g2": anos_disponiveis_g2,
-            "ufs_disponiveis": ufs_disponiveis,
-            "img_hum_anual": img_hum_anual,
-            "img_epi_anual": img_epi_anual,
-            "img_hum_uf": img_hum_uf,
-            "img_epi_uf": img_epi_uf,
-            "total_humanos": total_humanos,
-            "total_epizootias": total_epizootias,
+    graficos_streamlit = None
+    if dados.get("graficos_streamlit"):
+        graficos_streamlit = {
+            "url_anos": f"http://localhost:{PORTA_STREAMLIT_ANOS}",
+            "url_estado": f"http://localhost:{PORTA_STREAMLIT_ESTADO}",
         }
 
-    return render_template("opcao.html", numero=num, dados=dados, graficos=graficos)
-
-
-@app.route("/api/grafico-anual")
-def api_grafico_anual():
-    """Usado pelo graficos.js: recebe ?ano=... e devolve as imagens já filtradas."""
-    ano = request.args.get("ano", "Todos")
-    img_humanos, img_epizootias, anos_disponiveis = montar_grafico_anual(ano)
-    return jsonify({
-        "img_humanos": img_humanos,
-        "img_epizootias": img_epizootias,
-        "anos_disponiveis": anos_disponiveis,
-    })
-
-
-@app.route("/api/grafico-uf")
-def api_grafico_uf():
-    """Usado pelo graficos.js: recebe ?ano=...&uf=... e devolve as imagens já filtradas."""
-    ano = request.args.get("ano", "Todos")
-    uf = request.args.get("uf", "Todas")
-    (
-        img_humanos,
-        img_epizootias,
-        total_humanos,
-        total_epizootias,
-        anos_disponiveis,
-        ufs_disponiveis,
-    ) = montar_grafico_uf(ano, uf)
-    return jsonify({
-        "img_humanos": img_humanos,
-        "img_epizootias": img_epizootias,
-        "total_humanos": total_humanos,
-        "total_epizootias": total_epizootias,
-        "anos_disponiveis": anos_disponiveis,
-        "ufs_disponiveis": ufs_disponiveis,
-    })
+    return render_template(
+        "opcao.html", numero=num, dados=dados, graficos_streamlit=graficos_streamlit
+    )
 
 
 @app.route("/destaque")
@@ -126,4 +119,9 @@ def destaque():
 
 
 if __name__ == "__main__":
+    # evita subir os apps Streamlit duas vezes por causa do reloader do Flask
+    if os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+        iniciar_apps_streamlit()
+        atexit.register(encerrar_apps_streamlit)
+
     app.run(debug=True)

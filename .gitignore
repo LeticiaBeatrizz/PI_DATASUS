@@ -22,6 +22,9 @@ dist/
 instance/
 .flaskenv
 
+# Streamlit
+.streamlit/
+
 # Logs
 *.log
 

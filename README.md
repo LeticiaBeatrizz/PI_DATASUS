@@ -11,5 +11,5 @@
 
     No macOS ou Linux: source venv/bin/activate
 
-- Instale a dependência: pip install -r requirements.txt
+- Instale as dependências: pip install -r requirements.txt
 - Execute no terminal: python app.py

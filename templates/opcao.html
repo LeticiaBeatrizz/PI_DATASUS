@@ -8,7 +8,7 @@
 {% block content %}
     <section class="page-pad content-section">
         <h1 class="eyebrow"> <strong>{{ dados.titulo }}</strong></h1>
-        
+
         <div class="content-card">
             {% if dados.html %}
                 {{ dados.texto | safe }}
@@ -16,70 +16,65 @@
                 <p>{{ dados.texto }}</p>
             {% endif %}
 
-            {% if graficos %}
+            {% if graficos_streamlit %}
             <div class="grafico-secao">
-                <h3>Cruzamento de dados: casos humanos x epizootias em PNH</h3>
 
                 <div class="grafico-bloco">
-                    <p class="grafico-titulo">Evolução anual: casos humanos x epizootias em PNH</p>
+                    <h2 class="grafico-titulo">Evolução anual: casos humanos x epizootias em PNH x óbitos humanos</h2>
 
-                    <div class="grafico-filtros">
-                        <label for="ano_grafico1">Selecione o ano:</label>
-                        <select id="ano_grafico1">
-                            <option value="Todos" selected>Todos</option>
-                            {% for ano in graficos.anos_disponiveis %}
-                            <option value="{{ ano }}">{{ ano }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="grafico-iframe-wrap">
+                        <iframe
+                            src="{{ graficos_streamlit.url_anos }}?embed=true"
+                            class="grafico-iframe"
+                            title="Evolução anual: casos humanos x epizootias em PNH x óbitos humanos"
+                            loading="lazy">
+                        </iframe>
                     </div>
 
-                    <div class="grafico-grid">
-                        <div class="grafico-item">
-                            <p class="grafico-legenda">Casos Humanos</p>
-                            <img id="img-anual-humanos" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_hum_anual }}" alt="Casos humanos por ano">
-                        </div>
-                        <div class="grafico-item">
-                            <p class="grafico-legenda">Epizootias em PNH</p>
-                            <img id="img-anual-epizootias" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_epi_anual }}" alt="Epizootias em PNH por ano">
-                        </div>
+                    <div class="grafico-detalhamento">
+                        <p>
+                            Este painel cruza, ano a ano, a quantidade de casos humanos de febre amarela com a de epizootias registradas em primatas não humanos (PNH), utilizando os campos <code>ANO_IS</code> e <code>ANO_OCOR</code> das duas tabelas. As barras representam o total de ocorrências de cada categoria em cada ano, enquanto a linha sobreposta apresenta a evolução dos óbitos humanos (<code>OBITO</code> = "SIM"). Para finalizar, seletor de ano destaca a barra e o ponto correspondentes ao período selecionado, deixando os demais anos com opacidade reduzida para facilitar a comparação.
+
+                            Dessa forma, é possível observar a relação entre a ocorrência de epizootias em PNH e o surgimento de casos humanos, uma vez que os primatas não humanos participam do ciclo silvestre¹ da doença e podem indicar a circulação do vírus em uma região específica. Assim, anos com aumento de epizootias podem estar relacionados a uma maior circulação do vírus no ambiente, embora não quer dizer que, obrigatoriamente, haverá um aumento proporcional de casos humanos, visto que a transmissão depende também da exposição da população ao ciclo silvestre e de fatores de prevenção e vigilância. 
+                            <br>
+                            ———————————————
+                            <br>
+                            ¹ Ciclo silvestre: forma de transmissão da febre amarela que ocorre principalmente em ambientes de mata, envolvendo mosquitos dos gêneros Haemagogus e Sabethes e primatas não humanos, que atuam como hospedeiros e amplificadores do vírus. O ser humano participa desse ciclo de forma acidental ao entrar em áreas de mata. (SECRETARIA DA SAÚDE DO PARANÁ, 2026).
+                        </p>
                     </div>
                 </div>
 
                 <div class="grafico-bloco">
-                    <p class="grafico-titulo">Ocorrências por estado</p>
+                    <h2 class="grafico-titulo">Ocorrências por estado: casos humanos x epizootias em PNH x óbitos humanos</h2>
 
-                    <div class="grafico-filtros grafico-filtros--duplo">
-                        <div>
-                            <label for="ano_grafico2">Selecione o ano:</label>
-                            <select id="ano_grafico2">
-                                <option value="Todos" selected>Todos</option>
-                                {% for ano in graficos.anos_disponiveis_g2 %}
-                                <option value="{{ ano }}">{{ ano }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div>
-                            <label for="uf_grafico2">Selecione a UF:</label>
-                            <select id="uf_grafico2">
-                                <option value="Todas" selected>Todas</option>
-                                {% for uf in graficos.ufs_disponiveis %}
-                                <option value="{{ uf }}">{{ uf }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                    <div class="grafico-iframe-wrap">
+                        <iframe
+                            src="{{ graficos_streamlit.url_estado }}?embed=true"
+                            class="grafico-iframe"
+                            title="Ocorrências por estado: casos humanos x epizootias em PNH x óbitos humanos"
+                            loading="lazy">
+                        </iframe>
                     </div>
 
-                    <div class="grafico-grid">
-                        <div class="grafico-item">
-                            <p class="grafico-legenda">Casos Humanos — Total: <strong id="total-humanos-uf">{{ graficos.total_humanos }}</strong></p>
-                            <img id="img-uf-humanos" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_hum_uf }}" alt="Casos humanos por UF">
-                        </div>
-                        <div class="grafico-item">
-                            <p class="grafico-legenda">Epizootias em PNH — Total: <strong id="total-epizootias-uf">{{ graficos.total_epizootias }}</strong></p>
-                            <img id="img-uf-epizootias" class="grafico-imagem" src="data:image/png;base64,{{ graficos.img_epi_uf }}" alt="Epizootias em PNH por UF">
-                        </div>
+                    <div class="grafico-detalhamento">
+                        <p>
+                            Este painel reduz cada registro à sua Unidade Federativa (UF_LPI para casos humanos e UF_OCOR para epizootias) e contabiliza as ocorrências de cada categoria — casos humanos, epizootias em PNH e óbitos humanos — por estado, exibindo os 27 estados lado a lado. Dessa forma, é possível analisar a distribuição da febre amarela em toda extensão territorial brasileira e verificar se os estados que apresentam maior número de epizootias em primatas também concentram mais casos e óbitos em humanos, o que pode ser um indicador de áreas com maior circulação do vírus. Por fim, o seletor de UF realça o estado escolhido, deixando os demais com opacidade reduzida.
+
+                            Ademais, vale ressaltar que a Região Amazônica é considerada uma área endêmica² para a febre amarela silvestre, uma vez que apresenta condições ambientais favoráveis à permanência do vírus na natureza. Nesse contexto, destaca-se o ciclo silvestre, no qual o vírus circula principalmente entre primatas não humanos e mosquitos silvestres. Apesar dessa circulação, os casos em humanos podem ocorrer de maneira esporádica, visto que o ser humano participa desse ciclo de forma acidental ao entrar em áreas de mata. Assim, a ocorrência de casos tende a acontecer em períodos espaços e de forma cíclica, mesmo diante da circulação contínua do vírus na região. 
+                            <br>
+                            ———————————————
+                            <br>
+                            ² Endêmica: termo utilizado para caracterizar a ocorrência habitual de uma doença em determinada área geográfica, dentro dos limites esperados e por um período prolongado. No caso da febre amarela, a região amazônica é historicamente considerada endêmica devido às condições ambientais que favorecem a manutenção do vírus na natureza. (UNASUS, 2016; BRASIL, 2025).
+                        </p>
                     </div>
                 </div>
+
+            </div>
+            {% endif %}
+
+            {% if dados.referencias %}
+            <div class="referencias-secao">
+                {{ dados.referencias | safe }}
             </div>
             {% endif %}
         </div>
@@ -87,7 +82,4 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if dados.graficos %}
-        <script src="{{ url_for('static', filename='graficos.js') }}"></script>
-    {% endif %}
 {% endblock %}

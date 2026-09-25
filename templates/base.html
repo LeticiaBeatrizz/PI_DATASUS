@@ -16,10 +16,7 @@
     </head>
 
     <header class="topbar topbar-index">
-
-        <button class="hamburger" id="menuToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menu">
-            <span></span><span></span><span></span>
-        </button>
+            
 
         <a class="marca" href="{{ url_for('home') }}">
             <span class="marca-title">Análise de dados<br>do DATASUS</span>
@@ -27,28 +24,15 @@
             <span class="marca-subtitle">{{ dados.subtitulo }}</span>
         </a>
         
-        <a class="btn btn--cta" href="{{ url_for('destaque') }}"> Acesse algo
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14"/>
-            </svg>
-        </a>
+        <nav class = "nav-abas">
+            <span class = "abas-teoria"> <a href = {{ url_for('opcao', num = 1) }}> Estudo Teórico </a> </span>
+            <span class = "abas-dados"> <a href = {{ url_for('opcao', num = 2) }}> Definição da Base de Dados </a> </span>
+            <span class = "abas-opcao"> <a href = {{ url_for('opcao', num = 3) }}> Sobre </a> </span>
+        </nav>
+
     </header>
 
     <body>
-        <div class = "menu" id = "menu"> </div>
-
-        <nav class = "sidebar"  id = "sidebar" aria-hidden = "true">
-            <ul class = "sidebar-list">
-                <li> <a href = {{ url_for('opcao', num = 1) }}> Estudo Teórico </a> </li>
-                <li> <a href = {{ url_for('opcao', num = 2) }}> Definição da Base de Dados </a> </li>
-                <li> <a href = {{ url_for('opcao', num = 3) }}> Opção 03 </a> </li>
-            </ul>
-            <a class = "sidebar-destaque" href = "{{ url_for (('destaque'))}}"> Destaque
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M7 17L17 7M17 7H9M17 7V15"/>
-                </svg>
-            </a>
-        </nav>
 
         <main> 
             {% block content %} {% endblock %}
