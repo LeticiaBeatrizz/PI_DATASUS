@@ -24,8 +24,9 @@
 
                     <div class="grafico-iframe-wrap">
                         <iframe
-                            src="{{ graficos_streamlit.url_anos }}?embed=true"
+                            src="{{ graficos_streamlit.url_anos }}?embed=true&embed_options=disable_scrolling"
                             class="grafico-iframe"
+                            scrolling="no"
                             title="Evolução anual: casos humanos x epizootias em PNH x óbitos humanos"
                             loading="lazy">
                         </iframe>
@@ -49,8 +50,9 @@
 
                     <div class="grafico-iframe-wrap">
                         <iframe
-                            src="{{ graficos_streamlit.url_estado }}?embed=true"
+                            src="{{ graficos_streamlit.url_estado }}?embed=true&embed_options=disable_scrolling"
                             class="grafico-iframe"
+                            scrolling="no"
                             title="Ocorrências por estado: casos humanos x epizootias em PNH x óbitos humanos"
                             loading="lazy">
                         </iframe>

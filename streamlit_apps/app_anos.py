@@ -18,6 +18,12 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 st.set_page_config(page_title="Casos humanos x Epizootias em PNH", page_icon="📊", layout="wide")
 
+st.markdown("""
+    <style>
+        .block-container { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    </style>
+""", unsafe_allow_html=True)
+
 with open(os.path.join(DATA_DIR, "fa_casoshumanos_1994-2026.json"), "r", encoding="utf-8") as arquivo:
     dados_humanos = json.load(arquivo)
 
@@ -59,7 +65,7 @@ df_comparativo["Ano"] = df_comparativo["Ano"].astype(str)
 
 cores_categorias = alt.Scale(
     domain=["Casos Humanos", "Epizootias em PNH"],
-    range=["#D85A30", "#1D9E75"]
+    range=["#1c1a4a", "#e2951a"]
 )
 
 df_barras = df_comparativo.melt(
@@ -104,7 +110,7 @@ linha = alt.Chart(df_linha).mark_line(strokeWidth=2.5, color="#E34948").encode(
     tooltip=["Ano", "Óbitos Humanos"]
 )
 
-pontos = alt.Chart(df_linha).mark_point(filled=True, color="#E34948").encode(
+pontos = alt.Chart(df_linha).mark_point(filled=True, color="#F65C5C").encode(
     x=alt.X("Ano:O"),
     y=alt.Y("Óbitos Humanos:Q"),
     opacity=opacidade_ponto,

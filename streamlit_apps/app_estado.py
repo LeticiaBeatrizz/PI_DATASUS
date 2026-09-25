@@ -18,6 +18,11 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 st.set_page_config(page_title="Ocorrências e óbitos por estado - Humanos x PNH", page_icon="🗺️", layout="wide")
 
+st.markdown("""
+    <style>
+        .block-container { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    </style>
+""", unsafe_allow_html=True)
 
 with open(os.path.join(DATA_DIR, "fa_casoshumanos_1994-2026.json"), "r", encoding="utf-8") as arquivo:
     dados_humanos = json.load(arquivo)
@@ -67,7 +72,7 @@ df_linhas_uf = df_comparativo_uf.melt(
 
 cores_categorias = alt.Scale(
     domain=["Casos Humanos", "Epizootias em PNH", "Óbitos Humanos"],
-    range=["#D85A30", "#1D9E75", "#8B5CF6"]
+    range=["#1c1a4a", "#e2951a", "#F65C5C"]
 )
 
 if uf != "Todas":
