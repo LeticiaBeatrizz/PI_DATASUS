@@ -1,25 +1,24 @@
-import streamlit as st
-import pandas as pd
-import altair as alt
 import json
-import numpy as np
 import os
  
-# --- Adaptação para VS Code: em vez do caminho fixo do Colab (/content/...),
-# os JSON são lidos da pasta data/ do projeto. O restante é idêntico ao notebook.
+import altair as alt
+import numpy as np
+import pandas as pd
+import streamlit as st
+ 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
  
 st.set_page_config(page_title="Casos humanos x Epizootias em PNH", page_icon="📊", layout="wide")
  
- 
-# --- Ajuste de largura: no modo embed (iframe do Flask) o Streamlit ignora o layout="wide"
-# e limita o conteúdo a 736px. Este CSS libera a largura total do iframe.
+# Reduz o padding padrão do Streamlit em cima/embaixo, ajudando o conteúdo
+# a caber no iframe sem precisar de rolagem interna.
 st.markdown("""
     <style>
-        .block-container { max-width: 100% !important; padding-left: 1.5rem; padding-right: 1.5rem; }
+        .block-container { padding-top: 0.5rem; padding-bottom: 0.5rem; }
     </style>
 """, unsafe_allow_html=True)
+ 
  
 with open(os.path.join(DATA_DIR, "fa_casoshumanos_1994-2026.json"), "r", encoding="utf-8") as arquivo:
     dados_humanos = json.load(arquivo)
@@ -61,7 +60,7 @@ def ao_mudar_categoria():
     todas_marcadas = all(st.session_state[f"chk_{c}"] for c in todas_categorias)
     st.session_state["chk_Todos"] = todas_marcadas
  
-with st.expander("Selecione a(s) categoria(s)", expanded=False):
+with st.popover("Selecione a(s) categoria(s)"):
     st.checkbox("Todos", key="chk_Todos", on_change=ao_mudar_todos)
     for categoria in todas_categorias:
         st.checkbox(categoria, key=f"chk_{categoria}", on_change=ao_mudar_categoria)
@@ -88,7 +87,7 @@ df_comparativo["Ano"] = df_comparativo["Ano"].astype(str)
  
 cores_categorias = alt.Scale(
     domain=todas_categorias,
-    range=["#1c1a4a", "#f5a623", "#F74245"]
+    range=["#D85A30", "#1D9E75", "#8B5CF6"]
 )
  
 def monta_serie(nome_coluna, nome_categoria):
