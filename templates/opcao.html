@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+    {{ dados.titulo }} · DATASUS
+{% endblock %}
+
+{% block content %}
+    <section class="page-pad content-section">
+        <h1 class="eyebrow"> <strong>{{ dados.titulo }}</strong></h1>
+
+        <div class="content-card">
+            {% if dados.html %}
+                {{ dados.texto | safe }}
+            {% else %}
+                <p>{{ dados.texto }}</p>
+            {% endif %}
+        </div>
+
+        {% if graficos_streamlit %}
+            <div class="grafico-secao">
+
+                <div class="grafico-bloco">
+                    <h2 class="grafico-titulo">Evolução anual: casos humanos x epizootias em PNH x óbitos humanos</h2>
+
+                    <div class="grafico-iframe-wrap">
+                        <iframe
+                            src="{{ graficos_streamlit.url_anos }}?embed=true&embed_options=disable_scrolling"
+                            class="grafico-iframe"
+                            scrolling="no"
+                            title="Evolução anual: casos humanos x epizootias em PNH x óbitos humanos"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div class="grafico-detalhamento">
+                        <p>
+                            Este painel cruza, ano a ano, a quantidade de casos humanos de febre amarela com a de epizootias registradas em primatas não humanos (PNH), utilizando os campos <code>ANO_IS</code> e <code>ANO_OCOR</code> das duas tabelas. As barras representam o total de ocorrências de cada categoria em cada ano, enquanto a linha sobreposta apresenta a evolução dos óbitos humanos (<code>OBITO</code> = "SIM"). Para finalizar, seletor de ano destaca a barra e o ponto correspondentes ao período selecionado, deixando os demais anos com opacidade reduzida para facilitar a comparação.
+
+                            Dessa forma, é possível observar a relação entre a ocorrência de epizootias em PNH e o surgimento de casos humanos, uma vez que os primatas não humanos participam do ciclo silvestre¹ da doença e podem indicar a circulação do vírus em uma região específica. Assim, anos com aumento de epizootias podem estar relacionados a uma maior circulação do vírus no ambiente, embora não quer dizer que, obrigatoriamente, haverá um aumento proporcional de casos humanos, visto que a transmissão depende também da exposição da população ao ciclo silvestre e de fatores de prevenção e vigilância. 
+                            <br>
+                            ———————————————
+                            <br>
+                            ¹ Ciclo silvestre: forma de transmissão da febre amarela que ocorre principalmente em ambientes de mata, envolvendo mosquitos dos gêneros Haemagogus e Sabethes e primatas não humanos, que atuam como hospedeiros e amplificadores do vírus. O ser humano participa desse ciclo de forma acidental ao entrar em áreas de mata. (SECRETARIA DA SAÚDE DO PARANÁ, 2026).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grafico-bloco">
+                    <h2 class="grafico-titulo">Ocorrências por estado: casos humanos x epizootias em PNH x óbitos humanos</h2>
+
+                    <div class="grafico-iframe-wrap">
+                        <iframe
+                            src="{{ graficos_streamlit.url_estado }}?embed=true&embed_options=disable_scrolling"
+                            class="grafico-iframe"
+                            scrolling="no"
+                            title="Ocorrências por estado: casos humanos x epizootias em PNH x óbitos humanos"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div class="grafico-detalhamento">
+                        <p>
+                            Este painel reduz cada registro à sua Unidade Federativa (UF_LPI para casos humanos e UF_OCOR para epizootias) e contabiliza as ocorrências de cada categoria — casos humanos, epizootias em PNH e óbitos humanos — por estado, exibindo os 27 estados lado a lado. Dessa forma, é possível analisar a distribuição da febre amarela em toda extensão territorial brasileira e verificar se os estados que apresentam maior número de epizootias em primatas também concentram mais casos e óbitos em humanos, o que pode ser um indicador de áreas com maior circulação do vírus. Por fim, o seletor de UF realça o estado escolhido, deixando os demais com opacidade reduzida.
+
+                            Ademais, vale ressaltar que a Região Amazônica é considerada uma área endêmica² para a febre amarela silvestre, uma vez que apresenta condições ambientais favoráveis à permanência do vírus na natureza. Nesse contexto, destaca-se o ciclo silvestre, no qual o vírus circula principalmente entre primatas não humanos e mosquitos silvestres. Apesar dessa circulação, os casos em humanos podem ocorrer de maneira esporádica, visto que o ser humano participa desse ciclo de forma acidental ao entrar em áreas de mata. Assim, a ocorrência de casos tende a acontecer em períodos espaços e de forma cíclica, mesmo diante da circulação contínua do vírus na região. 
+                            <br>
+                            ———————————————
+                            <br>
+                            ² Endêmica: termo utilizado para caracterizar a ocorrência habitual de uma doença em determinada área geográfica, dentro dos limites esperados e por um período prolongado. No caso da febre amarela, a região amazônica é historicamente considerada endêmica devido às condições ambientais que favorecem a manutenção do vírus na natureza. (UNASUS, 2016; BRASIL, 2025).
+                        </p>
+                    </div>
+                </div>
+
+                </div>
+            {% endif %}
+
+        {% if dados.referencias %}
+            <div class="referencias-secao">
+                {{ dados.referencias | safe }}
+            </div>
+        {% endif %}
+        
+    </section>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
