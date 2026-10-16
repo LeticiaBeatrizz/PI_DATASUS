@@ -23,7 +23,7 @@ de transmissão, método adotado pelo Ministério da Saúde desde o ano de 2008.
 A tabela de casos humanos possui 15 variáveis, cujos nomes são definidos a partir da
 sigla que os compõem.
 
-| Variável | Significado | Definição
+| Campo | Descrição | Significado
 | --- | --- | --- |
 | ID | Identificador sequencial único | Número que identifica o caso registrado de maneira única, ou seja, nenhum outro registro deve possuir o mesmo ID já registrado, mantendo assim a integridade do banco de dados. |
 | MACRORREG_LPI | Sigla da macrorregião do local provável de infecção | Identifica em qual macrorregião — Norte (N), Nordeste (NO), Centro-Oeste (CO), Sul (S) e Sudeste (SE) — a infecção provavelmente aconteceu. Pode abrir margem para a identificação de qual macrorregião possui o maior índice de casos registrados.

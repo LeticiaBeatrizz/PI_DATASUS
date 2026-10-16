@@ -422,3 +422,50 @@ body.sidebar-open .menu { opacity: 1; pointer-events: auto; }
   font-size: 0.98rem;
   box-shadow: var(--shadow);
 }
+
+/* Menu suspenso (dropdown) da aba "Análise de Dados" */
+
+.dropdown {
+  position: relative;
+  padding-bottom: 12px;   /* estende a área de hover até o menu, sem "buraco" */
+  margin-bottom: -12px;   /* compensa o padding para não mexer no layout */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: var(--navy-soft);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  z-index: 70;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 18px;
+  color: var(--white);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--orange);
+}
