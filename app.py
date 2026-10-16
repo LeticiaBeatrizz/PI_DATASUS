@@ -65,6 +65,7 @@ ESTUDO_TEORICO_HTML = carregar_markdown("estudo_teorico.md")
 DEFINICAO_BASE_DADOS_HTML = carregar_markdown("def_dados.md")
 DEFINICAO_BASE_DADOS_REFERENCIAS_HTML = carregar_markdown("def_dados_ref.md")
 ANALISE_DADOS_HTML = carregar_markdown("analise_dados.md")
+DEFINICAO_BASE_DADOS_VACINAS_HTML = carregar_markdown("def_dados_vacinas.md")
 
 
 OPCOES = {
@@ -89,6 +90,13 @@ OPCOES = {
         "graficos_streamlit": True,
         "html": True,
         },
+    
+    5: {
+        "titulo": "Definição da Base de Dados: Dados Vacinais",
+        "subtitulo": "Febre Amarela",
+        "texto": DEFINICAO_BASE_DADOS_VACINAS_HTML,
+        "html": True,
+    },
 }
 
 
