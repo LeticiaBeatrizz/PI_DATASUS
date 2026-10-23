@@ -1,9 +1,7 @@
 Este trabalho apresenta um estudo teórico do arbovírus da febre amarela a fim de
 fundamentar e consolidar a base conceitual para o desenvolvimento do Projeto Integrador
-(PI) que analisa o conjunto de dados sobre Febre Amarela em humanos e primatas
-não-humanos de 1994 a 2026, disponível no Portal de Dados Abertos do SUS. Nesse viés,
-conta-se com linguagem de programação para o propósito final de criar um painel interativo
-com as informações disponíveis. Assim, estrutura-se um documento contendo a definição da
+(PI) que analisa o [conjunto de dados sobre Febre Amarela em humanos e primatas
+não-humanos de 1994 a 2026](https://dadosabertos.saude.gov.br/dataset/febre-amarela-em-humanos-e-primatas-nao-humanos){target="_blank" rel="noopener"}, disponível no [Portal de Dados Abertos do SUS](https://dadosabertos.saude.gov.br/){target="_blank" rel="noopener"}. Nesse viés, conta-se com linguagem de programação para o propósito final de criar um painel interativo com as informações disponíveis. Assim, estrutura-se um documento contendo a definição da
 patologia, seus fatores de transmissão e os elementos que colaboram para a perpetuação da
 doença na sociedade brasileira.
 

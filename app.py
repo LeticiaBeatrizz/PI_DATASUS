@@ -66,6 +66,7 @@ DEFINICAO_BASE_DADOS_HTML = carregar_markdown("def_dados.md")
 DEFINICAO_BASE_DADOS_REFERENCIAS_HTML = carregar_markdown("def_dados_ref.md")
 ANALISE_DADOS_HTML = carregar_markdown("analise_dados.md")
 DEFINICAO_BASE_DADOS_VACINAS_HTML = carregar_markdown("def_dados_vacinas.md")
+SOBRE_HTML = carregar_markdown("sobre.md")
 
 
 OPCOES = {
@@ -102,7 +103,7 @@ OPCOES = {
 
 @app.route('/')
 def home():
-    return render_template("index.html", dados={"subtitulo": "Febre Amarela"})
+    return render_template("index.html", dados={"subtitulo": "Febre Amarela"}, sobre_html=SOBRE_HTML)
 
 
 @app.route("/opcao/<int:num>")
