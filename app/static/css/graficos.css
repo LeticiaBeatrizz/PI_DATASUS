@@ -1,0 +1,65 @@
+/* Gráficos: cruzamento de dados (iframes do Streamlit) */
+
+.grafico-secao {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border, #d9dfe6);
+}
+
+.grafico-bloco {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+.grafico-titulo {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.grafico-iframe-wrap {
+  width: 100%;
+  height: 700px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.grafico-iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .grafico-iframe-wrap {
+    height: 1200px;
+  }
+}
+
+.grafico-detalhamento {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border, #d9dfe6);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.grafico-detalhamento p {
+  margin: 0;
+}
+
+.grafico-detalhamento code {
+  background: rgba(20, 18, 58, 0.06);
+  color: var(--navy);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}

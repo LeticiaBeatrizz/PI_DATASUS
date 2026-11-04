@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html  lang = "pt-br">
+    <head>
+        <meta cherset = "UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            {% block title %}  Análise de dados do DATASUS - Febre Amarela {% endblock %}
+        </title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/graficos.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+    </head>
+
+    <body>
+        {% include "shared/header.html" %}
+
+        <main>
+            {% block content %} {% endblock %}
+        </main>
+    </body>
+</html>

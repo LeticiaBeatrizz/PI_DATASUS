@@ -1,0 +1,22 @@
+<header class="topbar topbar-index">
+
+
+    <a class="marca" href="{{ url_for('home') }}">
+        <span class="marca-title">Análise de dados<br>do DATASUS</span>
+        <span class="marca-divider" aria-hidden="true"></span>
+        <span class="marca-subtitle">{{ dados.subtitulo }}</span>
+    </a>
+
+    <nav class = "nav-abas">
+        <span class = "abas-teoria"> <a href = {{ url_for('opcao', num = 1) }}> Estudo Teórico </a> </span>
+        <span class="abas-dados dropdown">
+            <a>Definição da Base de Dados</a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ url_for('opcao', num=2) }}">Casos Humanos e Epizootias</a></li>
+                <li><a href="{{ url_for('opcao', num=5) }}">Dados Vacinais</a></li>
+            </ul>
+        </span>
+        <span class = "abas-analise"> <a href = {{ url_for('opcao', num = 4) }}> Análise de Dados </a> </span>
+    </nav>
+
+</header>

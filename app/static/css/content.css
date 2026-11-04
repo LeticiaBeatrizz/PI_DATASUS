@@ -1,0 +1,82 @@
+/* Conteúdo principal (cartão com texto em Markdown) */
+
+.content-section { padding-top: 32px; }
+
+.content-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  color: var(--text-muted);
+  line-height: 1.7;
+  width: 100%;
+
+}
+
+.content-card a {
+  color: var(--navy);
+  font-weight: 600;
+  background: linear-gradient(transparent 60%, rgba(245, 166, 35, 0.45) 60%);
+  padding: 0 2px;
+  border-radius: 2px;
+  transition: background 0.15s ease;
+}
+
+.content-card a:hover {
+  background: var(--orange);
+}
+
+.content-card h2,
+.content-card h3,
+.content-card h4 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.content-card h2 { font-size: 1.5rem; margin: 8px 0 12px; }
+
+.content-card h3 { font-size: 1.2rem; margin: 28px 0 10px; }
+
+.content-card h4 { font-size: 1.05rem; color: var(--orange-dark); margin: 22px 0 8px; }
+
+.content-card p { margin: 0 0 16px; }
+
+.content-card ul,
+.content-card ol {
+  padding-left: 20px;
+  margin: 0 0 16px;
+}
+
+.content-card li {
+  margin-bottom: 10px;
+}
+
+.content-card ul:last-child,
+.content-card ol:last-child {
+  margin-bottom: 0;
+}
+
+.content-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 24px;
+  font-size: 0.92rem;
+}
+
+.content-card th,
+.content-card td {
+  padding: 10px 14px;
+  border: 1px solid var(--border, #d9dfe6);
+  text-align: left;
+}
+
+.content-card th {
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-display);
+}
+
+.content-card tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.03);
+}

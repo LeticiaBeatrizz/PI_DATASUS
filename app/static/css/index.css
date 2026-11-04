@@ -1,0 +1,104 @@
+/* Página inicial (capa e seção abaixo da capa) */
+
+.index-pag {
+  padding: 24px 6vw;
+}
+
+@media (min-width: 1200px) {
+  .index-pag { padding: 28px clamp(24px, 8vw, 120px); }
+}
+
+/* Capa */
+
+.index-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 40px;
+}
+
+.index-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.index-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  line-height: 1.08;
+  color: var(--navy);
+  margin: 0;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(20, 18, 58, 0.18);
+}
+
+.index-title-strong { display: block; }
+
+.index-subtitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--orange);
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  margin: 14px 0 0;
+}
+
+.index-botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  background: var(--orange);
+  color: var(--navy);
+  padding: 15px 28px;
+  font-size: 1.05rem;
+  margin-top: 28px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.index-botao:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+.index-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 0.98rem;
+  box-shadow: var(--shadow);
+}
+
+/* Texto em Markdown dentro do cartão da capa */
+
+.index-card p { margin: 0 0 16px; }
+
+.index-card p:last-child { margin-bottom: 0; }
+
+.index-card strong { color: var(--navy); }
+
+.index-card h2,
+.index-card h3 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+
+.index-card ul,
+.index-card ol { padding-left: 20px; margin: 0 0 16px; }
+
+.index-card a {
+  color: var(--navy);
+  font-weight: 600;
+  background: linear-gradient(transparent 60%, rgba(245, 166, 35, 0.45) 60%);
+}
+
+/* Seção em Markdown abaixo da capa */
+
+.index-abaixo { padding-top: 0; padding-bottom: 48px; }
